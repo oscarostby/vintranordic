@@ -1,0 +1,658 @@
+<!doctype html>
+<html lang="nb">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Vintra for virksomheter</title>
+<meta name="description" content="Vintra er AI-kundeservice for store virksomheter. Svarer kundene døgnet rundt fra innhold dere har godkjent, og sender saker videre med full kontekst.">
+<meta name="theme-color" content="#FFFFFF">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://images.unsplash.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="chat-widget.css">
+</head>
+<body>
+<!-- NB: Foto fra images.unsplash.com er plassholdere og skal byttes med Vintras egne bilder.
+     Portrettene av de ansatte ligger i img/. Påstander om sikkerhet må bekreftes før publisering. -->
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="vg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1F4ED8"/><stop offset="1" stop-color="#3B82F6"/></linearGradient>
+    <symbol id="logo" viewBox="0 0 32 32"><path d="M4.5 7 12.6 25.5 16.6 16" fill="none" stroke="url(#vg)" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22.6" cy="11.6" r="7.2" fill="url(#vg)"/><circle cx="19.9" cy="11.6" r="1.25" fill="#fff"/><circle cx="22.6" cy="11.6" r="1.25" fill="#fff"/><circle cx="25.3" cy="11.6" r="1.25" fill="#fff"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.2 4.2L19 7"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14m0 0-5.5-5.5M19 12l-5.5 5.5"/></symbol>
+    <symbol id="i-down" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></symbol>
+    <symbol id="i-inbox" viewBox="0 0 24 24"><path d="M3.5 13.5 6 5h12l2.5 8.5V19h-17z"/><path d="M3.5 13.5h5l1.2 2.5h4.6l1.2-2.5h5"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5h16v11H9.5L4 20z"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5.5C4 4.7 4.7 4 5.5 4H11v16H5.5c-.8 0-1.5-.7-1.5-1.5z"/><path d="M20 5.5c0-.8-.7-1.5-1.5-1.5H13v16h5.5c.8 0 1.5-.7 1.5-1.5z"/></symbol>
+    <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 7h9M18 7h2M4 17h3M12 17h8"/><circle cx="15.5" cy="7" r="2.3"/><circle cx="9.5" cy="17" r="2.3"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 4v16h16"/><path d="M8.5 16v-4M12.5 16V8M16.5 16v-6"/></symbol>
+    <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 3v2.5M12 18.5V21M3 12h2.5M18.5 12H21M5.6 5.6l1.8 1.8M16.6 16.6l1.8 1.8M5.6 18.4l1.8-1.8M16.6 7.4l1.8-1.8"/></symbol>
+    <symbol id="i-doc" viewBox="0 0 24 24"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5"/><path d="M10 13h6M10 17h4"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7 3v5.2c0 4.4-3 8.1-7 9.8-4-1.7-7-5.4-7-9.8V6z"/><path d="M9 12l2.2 2.2L15.4 10"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.4 2.6 3.6 5.4 3.6 8.5s-1.2 5.9-3.6 8.5c-2.4-2.6-3.6-5.4-3.6-8.5s1.2-5.9 3.6-8.5z"/></symbol>
+    <symbol id="i-key" viewBox="0 0 24 24"><circle cx="8" cy="15" r="4"/><path d="M11 12l8.5-8.5M16 7l2.5 2.5M13.8 9.2l2 2"/></symbol>
+    <symbol id="i-list" viewBox="0 0 24 24"><path d="M9 6.5h11M9 12h11M9 17.5h11M4.5 6.5h.5M4.5 12h.5M4.5 17.5h.5"/></symbol>
+    <symbol id="i-eyeoff" viewBox="0 0 24 24"><path d="M3.5 3.5l17 17"/><path d="M10.4 6.2A9 9 0 0 1 12 6c5 0 8.4 4.4 9 6-.3.9-1.3 2.4-2.9 3.8M6.5 7.7C4.6 9 3.4 10.8 3 12c.6 1.6 4 6 9 6 1.6 0 3-.4 4.2-1.1"/></symbol>
+    <symbol id="i-cpu" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9.5 9.5h5v5h-5zM9 3v3M15 3v3M9 18v3M15 18v3M3 9h3M3 15h3M18 9h3M18 15h3"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5.2 4h3.3l1.6 4.2-2.1 1.4a11 11 0 0 0 6.4 6.4l1.4-2.1 4.2 1.6v3.3a1.7 1.7 0 0 1-1.8 1.7A16 16 0 0 1 3.5 5.8 1.7 1.7 0 0 1 5.2 4z"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3.5" y="5.5" width="17" height="13" rx="2"/><path d="M4 7.5l8 5.5 8-5.5"/></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 10.8 12 4l8 6.8V20h-5.5v-5.5h-5V20H4z"/></symbol>
+    <symbol id="i-grid" viewBox="0 0 24 24"><rect x="4" y="4" width="6.5" height="6.5" rx="1.5"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.5"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.5"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.5"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="4" y="5.5" width="16" height="14.5" rx="2"/><path d="M4 10h16M8.5 3.5v4M15.5 3.5v4"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8.5" r="3.2"/><path d="M3.5 19.5c.7-3.1 2.9-4.9 5.5-4.9s4.8 1.8 5.5 4.9"/><path d="M15.5 5.6a3.2 3.2 0 0 1 0 6M17.5 14.9c1.6.6 2.6 2.2 3 4.6"/></symbol>
+    <symbol id="i-sparkle" viewBox="0 0 24 24"><path d="M12 3.5l1.9 5.1 5.1 1.9-5.1 1.9L12 17.5l-1.9-5.1L5 10.5l5.1-1.9z"/><path d="M18.5 15.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7z"/></symbol>
+  </defs>
+</svg>
+
+<a class="skip" href="#main">Hopp til innhold</a>
+
+<div class="util">
+  <div class="wrap">
+    <a href="https://www.vintranordic.com/">Liten bedrift? Se Vintra for nettsider og chatbot</a>
+    <div class="util-right">
+      <a href="#kontakt">Kundestøtte</a>
+      <a href="#sikkerhet">Sikkerhet</a>
+      <a href="#" aria-current="true">Norsk</a>
+    </div>
+  </div>
+</div>
+
+<header class="header">
+  <div class="wrap header-row">
+    <a class="logo" href="index.html" aria-label="Vintra, forsiden">
+      <svg width="30" height="30" aria-hidden="true"><use href="#logo"/></svg>Vintra
+    </a>
+    <nav aria-label="Hovedmeny">
+      <ul class="mainnav">
+        <li><a href="#produkt">Produkt</a></li>
+        <li><a href="#bransjer">Bransjer</a></li>
+        <li><a href="#sikkerhet">Sikkerhet</a></li>
+        <li><a href="demo.html">Prøv demo</a></li>
+        <li><a href="om-oss.html">Om oss</a></li>
+      </ul>
+    </nav>
+    <div class="header-cta">
+      <a class="login" href="https://www.vintranordic.com/auth/login">Logg inn</a>
+      <a class="btn btn-primary btn-sm" href="#kontakt">Gratis konsultasjon</a>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ================= HERO ================= -->
+<section class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <p class="overline">AI-kundeservice for store virksomheter</p>
+      <h1 class="h1">Løs flere henvendelser automatisk. Behold kontrollen.</h1>
+      <p class="lead">Vintra svarer kundene deres døgnet rundt med innhold dere selv har godkjent. Saker som trenger en saksbehandler, sendes videre med sammendrag og full historikk.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-primary" href="#kontakt">Book gratis konsultasjon</a>
+        <a class="btn btn-secondary" href="demo.html">Prøv demoen</a>
+      </div>
+      <p class="hero-note">Gratis og uforpliktende · 30 minutter · digitalt eller hos dere</p>
+      <ul class="hero-checks">
+        <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Data lagres og behandles i EU/EØS</li>
+        <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Databehandleravtale etter GDPR</li>
+        <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Norsk support og norsk avtaleverk</li>
+      </ul>
+    </div>
+
+    <div class="hero-media">
+      <img class="photo hero-photo" src="https://images.unsplash.com/photo-1766066014237-00645c74e9c6?auto=format&fit=max&w=1400&q=80" width="1400" height="933" alt="Smilende kundeveileder med hodesett ved en datamaskin i et kundesenter" fetchpriority="high">
+      <div class="float-card fc-stat" aria-hidden="true">
+        <small>Løst uten overføring i dag</small>
+        <b>64 %</b>
+        <span class="delta">+5 pp siste måned</span>
+        <div class="meter"><i style="width:64%"></i></div>
+      </div>
+      <div class="float-card fc-chat" aria-hidden="true">
+        <div class="fc-head"><svg width="18" height="18"><use href="#logo"/></svg>Vintra-assistent<span class="online">På nett</span></div>
+        <div class="b cust">Hva er felleskostnadene for leiligheten i Storgata 12?</div>
+        <div class="b ai">4 850 kr per måned, inkludert fyring og TV. Vil du melde deg på visning søndag kl. 13?
+          <div class="cites"><span class="cite"><svg class="ic"><use href="#i-doc"/></svg>Salgsoppgave, s. 4</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FAKTA ================= -->
+<section class="facts" aria-label="Rammer for drift og personvern">
+  <div class="wrap facts-grid">
+    <div class="fact"><svg class="ic" aria-hidden="true"><use href="#i-globe"/></svg><div><b>Data i EU/EØS</b><span>Lagring og behandling innenfor EØS.</span></div></div>
+    <div class="fact"><svg class="ic" aria-hidden="true"><use href="#i-doc"/></svg><div><b>Databehandleravtale</b><span>Etter GDPR artikkel 28.</span></div></div>
+    <div class="fact"><svg class="ic" aria-hidden="true"><use href="#i-key"/></svg><div><b>Single sign-on</b><span>SAML 2.0 og OpenID Connect.</span></div></div>
+    <div class="fact"><svg class="ic" aria-hidden="true"><use href="#i-list"/></svg><div><b>Full sporbarhet</b><span>Logg over svar, kilder og endringer.</span></div></div>
+  </div>
+</section>
+
+<!-- ================= PRODUKT ================= -->
+<section class="section" id="produkt">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="overline">Produktet</p>
+      <h2 class="h2">Én arbeidsflate for hele kundeservicen</h2>
+      <p class="lead">Se alle samtaler, hva assistenten har svart og hvilke kilder svaret bygger på. Saksbehandlere tar over der det trengs.</p>
+    </div>
+    <div class="showcase-frame">
+      <div class="app" role="img" aria-label="Skjermbilde av Vintra-arbeidsflaten med eksempeldata: innboks, samtale med kildehenvisning og kundeinformasjon">
+        <div class="app-top">
+          <div class="ws"><span class="ws-logo">EF</span>Eksempel Forsikring<svg class="ic"><use href="#i-down"/></svg></div>
+          <div class="search"><svg class="ic"><use href="#i-search"/></svg>Søk i samtaler</div>
+          <span class="av">AH</span>
+        </div>
+        <div class="app-main">
+          <div class="side">
+            <span class="on"><svg class="ic"><use href="#i-inbox"/></svg></span>
+            <span><svg class="ic"><use href="#i-chat"/></svg></span>
+            <span><svg class="ic"><use href="#i-book"/></svg></span>
+            <span><svg class="ic"><use href="#i-sliders"/></svg></span>
+            <span><svg class="ic"><use href="#i-chart"/></svg></span>
+            <span class="spacer"></span>
+            <span><svg class="ic"><use href="#i-gear"/></svg></span>
+          </div>
+          <div class="list">
+            <div class="list-head"><b>Innboks</b><div class="seg"><span class="on">Alle</span><span>AI</span><span>Overført</span></div></div>
+            <div class="row on"><span class="av">KH</span><b>Kari Hansen</b><time>10:41</time><p>Dekker innboforsikringen sykkel som blir …</p><span class="badge ok">Løst av assistent</span></div>
+            <div class="row"><span class="av">OB</span><b>Ola Berg</b><time>10:38</time><p>Når blir erstatningen utbetalt?</p><span class="badge ok">Løst av assistent</span></div>
+            <div class="row"><span class="av">JM</span><b>Jonas Moe</b><time>10:35</time><p>Jeg vil si opp bilforsikringen</p><span class="badge warn">Overført</span></div>
+            <div class="row"><span class="av">ID</span><b>Ingrid Dahl</b><time>10:29</time><p>Kan jeg endre betalingsdato?</p><span class="badge ok">Løst av assistent</span></div>
+            <div class="row"><span class="av">AA</span><b>Ahmed Ali</b><time>10:22</time><p>Vannskade på badet i natt</p><span class="badge warn">Overført</span></div>
+            <div class="row"><span class="av">SL</span><b>Sara Lie</b><time>10:17</time><p>Gjelder reiseforsikringen i USA?</p><span class="badge ok">Løst av assistent</span></div>
+          </div>
+          <div class="conv">
+            <div class="conv-head">
+              <div><b>Kari Hansen</b><small>Innboforsikring · Chat på nett</small></div>
+              <span class="badge ok">Løst av assistent</span>
+            </div>
+            <div class="conv-body">
+              <div class="b cust"><span class="b-meta">Kari · 10:39</span>Hei! Dekker innboforsikringen sykkel som blir stjålet fra boden i borettslaget?</div>
+              <div class="b ai"><span class="b-meta">Vintra-assistent · 10:39</span>Ja. Sykkel er dekket ved tyveri fra låst bod eller sykkelrom. Egenandelen står i forsikringsbeviset ditt. Vil du melde skaden nå?
+                <div class="cites"><span class="cite"><svg class="ic"><use href="#i-doc"/></svg>Vilkår innbo, pkt. 3.4</span><span class="cite"><svg class="ic"><use href="#i-doc"/></svg>Hjelpesenter: Tyveri av sykkel</span></div>
+              </div>
+              <div class="b cust"><span class="b-meta">Kari · 10:40</span>Ja, gjerne.</div>
+              <div class="sys"><svg class="ic"><use href="#i-check"/></svg>Lenke til skademelding sendt · 10:41</div>
+            </div>
+            <div class="conv-foot">
+              <span><svg class="ic"><use href="#i-shield"/></svg>Basert på 2 godkjente kilder</span>
+              <span>Eksempeldata</span>
+            </div>
+          </div>
+          <aside class="details">
+            <div>
+              <h4>Kunde</h4>
+              <dl>
+                <div><dt>Navn</dt><dd>Kari Hansen</dd></div>
+                <div><dt>Produkt</dt><dd>Innboforsikring</dd></div>
+                <div><dt>Kanal</dt><dd>Chat på nett</dd></div>
+              </dl>
+            </div>
+            <div>
+              <h4>Saksforløp</h4>
+              <ul class="trail">
+                <li><svg class="ic"><use href="#i-check"/></svg>Tema gjenkjent: tyveri</li>
+                <li><svg class="ic"><use href="#i-check"/></svg>Svar fra 2 godkjente kilder</li>
+                <li><svg class="ic"><use href="#i-check"/></svg>Lenke til skademelding sendt</li>
+              </ul>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SLIK FUNGERER DET ================= -->
+<section class="section alt" id="slik">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="overline">Slik fungerer det</p>
+      <h2 class="h2">Fra egne kilder til ferdig svar i tre steg</h2>
+      <p class="lead">Dere bestemmer hva assistenten vet, hva den får svare på og når et menneske skal ta over.</p>
+    </div>
+    <div class="steps3">
+      <article class="step3">
+        <span class="step-n">1</span>
+        <h3 class="h4">Koble til kildene</h3>
+        <p>Hjelpesenter, vilkår, produktark og intranett. Nytt innhold tas i bruk først når det er godkjent.</p>
+        <div class="mini" aria-hidden="true">
+          <div class="mini-card">
+            <div class="mini-row"><svg class="ic"><use href="#i-book"/></svg><div class="grow"><b>Hjelpesenter</b><small>1 284 artikler</small></div><span class="badge ok">Synkronisert</span></div>
+            <div class="mini-row"><svg class="ic"><use href="#i-doc"/></svg><div class="grow"><b>Vilkår og produktark</b><small>312 PDF-filer</small></div><span class="badge ok">Synkronisert</span></div>
+            <div class="mini-row"><svg class="ic"><use href="#i-doc"/></svg><div class="grow"><b>Prisliste 2027</b><small>Lastet opp i dag</small></div><span class="badge warn">Til godkjenning</span></div>
+          </div>
+        </div>
+      </article>
+      <article class="step3">
+        <span class="step-n">2</span>
+        <h3 class="h4">Sett regler for svarene</h3>
+        <p>Bestem hvilke temaer assistenten svarer på, og hvilke saker som alltid skal til en saksbehandler.</p>
+        <div class="mini" aria-hidden="true">
+          <div class="mini-card">
+            <div class="mini-row"><div class="grow"><b>Vilkår og dekning</b><small>Assistenten svarer</small></div><span class="toggle on"></span></div>
+            <div class="mini-row"><div class="grow"><b>Personlig rådgivning</b><small>Sendes til rådgiver</small></div><span class="toggle"></span></div>
+            <div class="mini-row"><div class="grow"><b>Oppsigelse</b><small>Overføres til kundesenteret</small></div><span class="toggle"></span></div>
+          </div>
+        </div>
+      </article>
+      <article class="step3">
+        <span class="step-n">3</span>
+        <h3 class="h4">Gå live og følg med</h3>
+        <p>Start i én kanal, følg resultatene daglig og utvid når tallene holder.</p>
+        <div class="mini" aria-hidden="true">
+          <div class="mini-metrics">
+            <div><small>Samtaler i dag</small><b>1 642</b></div>
+            <div><small>Løsningsgrad</small><b>64 %</b></div>
+            <div><small>Første svar</small><b>2,1 s</b></div>
+            <div><small>Kundetilfredshet</small><b>4,5 / 5</b></div>
+          </div>
+        </div>
+      </article>
+    </div>
+    <p style="margin-top:32px"><a class="link-arrow" href="demo.html">Prøv det selv i demoportalen <svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></a></p>
+  </div>
+</section>
+
+<!-- ================= FUNKSJONER ================= -->
+<section class="section" id="funksjoner" aria-label="Funksjoner">
+  <div class="wrap">
+    <div class="feature">
+      <div class="f-copy">
+        <p class="overline">Sporbarhet</p>
+        <h2 class="h3">Hvert svar kan spores tilbake til en godkjent kilde</h2>
+        <p class="lead">Assistenten svarer bare når den finner dekning i innhold dere har godkjent. Kunden ser kilden, og dere kan i ettertid se hvilket dokument og hvilken versjon svaret bygget på.</p>
+        <ul class="checks">
+          <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Kildehenvisning i hvert svar</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Sier fra når den ikke finner svaret</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Logg over spørsmål, svar og kilder</li>
+        </ul>
+      </div>
+      <div class="f-visual">
+        <div class="cui" role="img" aria-label="Eksempel på svardetaljer med spørsmål, svar, kilder og godkjenning">
+          <div class="cui-head"><b>Svardetaljer</b><span class="mono">ID 7F3A-21C9</span></div>
+          <div class="cui-sec"><small>Spørsmål</small><p>Dekker innboforsikringen sykkel som blir stjålet fra boden i borettslaget?</p></div>
+          <div class="cui-sec"><small>Svar</small><p>Ja. Sykkel er dekket ved tyveri fra låst bod eller sykkelrom. Egenandelen står i forsikringsbeviset ditt.</p></div>
+          <div class="cui-sec">
+            <small>Kilder brukt</small>
+            <div class="src-line"><span class="fi"><svg class="ic"><use href="#i-doc"/></svg></span><div><b>Vilkår innboforsikring</b><span>Pkt. 3.4 Tyveri · versjon 2026-2</span></div><span class="badge ok">Godkjent</span></div>
+            <div class="src-line"><span class="fi"><svg class="ic"><use href="#i-book"/></svg></span><div><b>Hjelpesenter: Tyveri av sykkel</b><span>Oppdatert 3. nov. 2026</span></div><span class="badge ok">Godkjent</span></div>
+          </div>
+          <div class="cui-foot"><span>Kilder godkjent av fagansvarlig innbo</span><span class="mono">Logget 10:39:52</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="feature flip">
+      <div class="f-copy">
+        <p class="overline">Overføring</p>
+        <h2 class="h3">Saksbehandleren får hele bildet</h2>
+        <p class="lead">Når en sak krever et menneske, opprettes den i saksbehandlingssystemet deres med sammendrag, kategori og prioritet. Kunden slipper å forklare alt på nytt.</p>
+        <ul class="checks">
+          <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Sammendrag skrevet for saksbehandleren</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Riktig kø basert på regler dere setter</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Hele samtalen følger med saken</li>
+        </ul>
+      </div>
+      <div class="f-visual">
+        <div class="cui" role="img" aria-label="Eksempel på en sak som er overført til en saksbehandler, med sammendrag og prioritet">
+          <div class="cui-head"><b>Sak 20431 · Oppsigelse</b><span class="badge warn">Høy prioritet</span></div>
+          <div class="cui-sec">
+            <dl class="kv">
+              <div><dt>Kunde</dt><dd>Jonas Moe</dd></div>
+              <div><dt>Kø</dt><dd>Kundesenter, kundelojalitet</dd></div>
+              <div><dt>Kanal</dt><dd>Chat på nett</dd></div>
+              <div><dt>Opprettet av</dt><dd>Vintra-assistent</dd></div>
+            </dl>
+          </div>
+          <div class="cui-sec">
+            <small>Sammendrag</small>
+            <p>Kunden vil si opp bilforsikringen fordi prisen økte 18 % ved fornyelse. Har fått tilbud fra et annet selskap. Ønsker å bli ringt i dag etter kl. 15.</p>
+            <div class="tagrow"><span class="tag">Oppsigelse</span><span class="tag">Pris</span><span class="tag">Ring tilbake</span></div>
+          </div>
+          <div class="cui-foot"><span class="fake-btn">Åpne samtalen</span><span class="mono">Overført 10:35</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="f-copy">
+        <p class="overline">Innsikt</p>
+        <h2 class="h3">Tall kundeservicelederen kan bruke</h2>
+        <p class="lead">Se hvor mange henvendelser som løses uten overføring, hva kundene spør om og hvor innholdet mangler. Tallene kan hentes ut til egne rapporter.</p>
+        <ul class="checks">
+          <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Løsningsgrad og svartid per kanal</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Spørsmål uten godt svar, sortert etter volum</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Eksport til BI-verktøy via API</li>
+        </ul>
+      </div>
+      <div class="f-visual">
+        <div class="cui" role="img" aria-label="Eksempel på innsiktsoversikt: 68 000 samtaler siste seks uker, 64 prosent løst uten overføring, stigende fra uke 41 til uke 46">
+          <div class="cui-head"><b>Innsikt · siste 6 uker</b><span class="badge neutral">Eksempeldata</span></div>
+          <div class="kpis">
+            <div class="kpi"><small>Samtaler</small><b>68 000</b><span class="delta">+12 %</span></div>
+            <div class="kpi"><small>Løsningsgrad</small><b>64 %</b><span class="delta">+5 pp</span></div>
+            <div class="kpi"><small>Første svar</small><b>2,1 s</b><span class="delta">−0,4 s</span></div>
+            <div class="kpi"><small>Kundetilfredshet</small><b>4,5 / 5</b><span class="delta">+0,2</span></div>
+          </div>
+          <div class="chart">
+            <div class="plot">
+              <div class="gl" style="bottom:0"><span>0</span></div>
+              <div class="gl" style="bottom:33.333%"><span>5 000</span></div>
+              <div class="gl" style="bottom:66.667%"><span>10 000</span></div>
+              <div class="gl" style="bottom:100%"><span>15 000</span></div>
+              <div class="bars">
+                <div class="bar"><i class="over" style="height:27.33%"></i><i class="ai" style="height:40.67%"></i></div>
+                <div class="bar"><i class="over" style="height:27.33%"></i><i class="ai" style="height:44.67%"></i></div>
+                <div class="bar"><i class="over" style="height:28%"></i><i class="ai" style="height:48%"></i></div>
+                <div class="bar"><i class="over" style="height:26%"></i><i class="ai" style="height:46.67%"></i></div>
+                <div class="bar"><i class="over" style="height:28%"></i><i class="ai" style="height:52.67%"></i></div>
+                <div class="bar"><i class="over" style="height:28.67%"></i><i class="ai" style="height:55.33%"></i></div>
+              </div>
+            </div>
+            <div class="xlab"><span>Uke 41</span><span>42</span><span>43</span><span>44</span><span>45</span><span>46</span></div>
+          </div>
+          <div class="legend"><span><i style="background:var(--brand)"></i>Løst av assistent</span><span><i style="background:#B3C7F4"></i>Overført til saksbehandler</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SIKKERHET ================= -->
+<section class="section alt" id="sikkerhet">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="overline">Sikkerhet og personvern</p>
+      <h2 class="h2">Laget for innkjøp med sikkerhetsgjennomgang</h2>
+      <p class="lead">IT, sikkerhet og juridisk skal godkjenne før dere tar i bruk en AI-tjeneste. Her er rammene vi leverer innenfor.</p>
+    </div>
+    <div class="sec-layout">
+      <div class="sec-cards">
+        <article class="card"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-globe"/></svg></span><h3 class="h4">Datalagring i EU/EØS</h3><p>Samtaler, kilder og logger lagres og behandles innenfor EØS.</p></article>
+        <article class="card"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-doc"/></svg></span><h3 class="h4">Databehandleravtale</h3><p>Standard avtale etter GDPR artikkel 28, med fullstendig liste over underleverandører.</p></article>
+        <article class="card"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-key"/></svg></span><h3 class="h4">Tilgangsstyring</h3><p>Single sign-on med SAML 2.0 eller OpenID Connect, og egne roller for administratorer, redaktører og saksbehandlere.</p></article>
+        <article class="card"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-list"/></svg></span><h3 class="h4">Revisjonslogg</h3><p>Endringer i innhold, regler og tilganger logges med tidspunkt og bruker.</p></article>
+        <article class="card"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-eyeoff"/></svg></span><h3 class="h4">Personopplysninger</h3><p>Fødselsnummer, kort- og kontonummer maskeres automatisk. Dere bestemmer hvor lenge samtaler lagres.</p></article>
+        <article class="card"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-cpu"/></svg></span><h3 class="h4">Språkmodell</h3><p>Google Gemini via betalt API. Samtalene deres brukes ikke til å trene modellen.</p></article>
+      </div>
+      <aside class="doc-box">
+        <h3 class="h4">Dokumentasjon til anskaffelsen</h3>
+        <p>Dette sender vi før første møte med IT og sikkerhet:</p>
+        <ul>
+          <li><svg class="ic" aria-hidden="true"><use href="#i-doc"/></svg>Databehandleravtale</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#i-doc"/></svg>Oversikt over underleverandører</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#i-doc"/></svg>Tekniske og organisatoriske tiltak</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#i-doc"/></svg>Grunnlag for vurdering av personvernkonsekvenser (DPIA)</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#i-doc"/></svg>Svar på deres sikkerhetsskjema</li>
+        </ul>
+        <a class="btn btn-secondary" href="#kontakt">Be om dokumentasjon</a>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ================= BRANSJER ================= -->
+<section class="section" id="bransjer">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="overline">Bransjer</p>
+      <h2 class="h2">Laget for bransjer med mange og viktige henvendelser</h2>
+    </div>
+    <div class="ind-grid">
+      <article class="ind">
+        <img class="photo" src="https://images.unsplash.com/photo-1758523671285-9ff3f4e0ff38?auto=format&fit=crop&w=800&h=500&q=75" width="800" height="500" loading="lazy" alt="Par som flytter inn i ny bolig">
+        <div class="ind-body"><h3 class="h4">Eiendomsmegling</h3><p>Svarer på spørsmål om visninger, salgsoppgave, felleskostnader og budrunder, og sender interessenter videre til megler.</p></div>
+      </article>
+      <article class="ind">
+        <img class="photo" src="https://images.unsplash.com/photo-1574362848149-11496d93a7c7?auto=format&fit=crop&w=800&h=500&q=75" width="800" height="500" loading="lazy" alt="Boligblokker med balkonger">
+        <div class="ind-body"><h3 class="h4">Bolig og borettslag</h3><p>Hjelper beboere og boligkjøpere med vedtekter, felleskostnader, overtakelse og meldinger om feil.</p></div>
+      </article>
+      <article class="ind">
+        <img class="photo" src="https://images.unsplash.com/photo-1610155180808-ad21f319ff9d?auto=format&fit=crop&w=800&h=500&q=75" width="800" height="500" loading="lazy" alt="Hus ved fjellet">
+        <div class="ind-body"><h3 class="h4">Forsikring</h3><p>Forklarer dekning og vilkår, veileder gjennom skademelding og gir status på saker.</p></div>
+      </article>
+      <article class="ind">
+        <img class="photo" src="https://images.unsplash.com/photo-1522125670776-3c7abb882bc2?auto=format&fit=crop&w=800&h=500&q=75" width="800" height="500" loading="lazy" alt="Person som bruker mobilen">
+        <div class="ind-body"><h3 class="h4">Bank og finans</h3><p>Svarer på spørsmål om produkter, gebyrer og kort, og sender rådgivning til autoriserte rådgivere.</p></div>
+      </article>
+      <article class="ind">
+        <img class="photo" src="https://images.unsplash.com/photo-1508791290064-c27cc1ef7a9a?auto=format&fit=crop&w=800&h=500&q=75" width="800" height="500" loading="lazy" alt="Vindturbiner i solnedgang">
+        <div class="ind-body"><h3 class="h4">Energi</h3><p>Forklarer faktura, forbruk og nettleie, og gir status ved strømbrudd.</p></div>
+      </article>
+      <article class="ind">
+        <img class="photo" src="https://images.unsplash.com/photo-1614517409437-2e25e4f5dbed?auto=format&fit=crop&w=800&h=500&q=75" width="800" height="500" loading="lazy" alt="Operahuset i Oslo ved vannet">
+        <div class="ind-body"><h3 class="h4">Offentlig sektor</h3><p>Svarer i klarspråk på bokmål og nynorsk, og viser vei til riktig tjeneste og skjema.</p></div>
+      </article>
+      <article class="ind">
+        <img class="photo" src="https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?auto=format&fit=crop&w=800&h=500&q=75" width="800" height="500" loading="lazy" alt="Lege i samtale med en pasient">
+        <div class="ind-body"><h3 class="h4">Helse</h3><p>Hjelper med timer, oppmøte og forberedelser, og sender medisinske spørsmål til helsepersonell.</p></div>
+      </article>
+      <article class="ind">
+        <img class="photo" src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=800&h=500&q=75" width="800" height="500" loading="lazy" alt="Butikklokale med klær">
+        <div class="ind-body"><h3 class="h4">Handel</h3><p>Svarer på levering, retur og produkter, og starter retur etter gjeldende regler.</p></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MENNESKENE ================= -->
+<section class="section alt" id="team">
+  <div class="wrap team-teaser">
+    <div>
+      <p class="overline">Menneskene bak Vintra</p>
+      <h2 class="h2">Dere snakker direkte med de som bygger løsningen</h2>
+      <p class="lead">Vintra eies og drives av tre utviklere. Ingen mellomledd, fra første konsultasjon til daglig drift.</p>
+      <a class="link-arrow" href="om-oss.html">Møt teamet <svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+    </div>
+    <div class="people">
+      <div class="person"><div class="ph ph-oscar"><img src="img/oscar-ostby.webp" width="596" height="1024" loading="lazy" alt="Portrett av Oscar Østby"></div><b>Oscar Østby</b><span>Medeier og fullstack-utvikler</span></div>
+      <div class="person"><img class="photo ph-martin" src="img/martin-secker.png" width="512" height="768" loading="lazy" alt="Portrett av Martin Secker"><b>Martin Secker</b><span>Medeier og utvikler</span></div>
+      <div class="person"><img class="photo ph-contain" src="img/kaktus.png" width="465" height="768" loading="lazy" alt="Kaktus i potte, profilbildet til Kaktus"><b>Kaktus</b><span>Medeier og fullstack-utvikler</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= INNFØRING ================= -->
+<section class="section" id="innforing">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="overline">Innføring</p>
+      <h2 class="h2">Fra første møte til produksjon på ti uker</h2>
+      <p class="lead">En fast kontaktperson følger dere gjennom hele løpet. Resultatene måles mot mål dere har satt.</p>
+    </div>
+    <ol class="timeline">
+      <li class="phase"><span class="when">Uke 1–2</span><h3 class="h4">Kartlegging</h3><p>Vi analyserer henvendelsene deres og avtaler mål for piloten.</p></li>
+      <li class="phase"><span class="when">Uke 3–6</span><h3 class="h4">Pilot</h3><p>Assistenten går live i én kanal for et utvalg kunder.</p></li>
+      <li class="phase"><span class="when">Uke 7–10</span><h3 class="h4">Integrasjon</h3><p>Kobling mot saksbehandling, CRM og single sign-on.</p></li>
+      <li class="phase"><span class="when">Fra uke 11</span><h3 class="h4">Drift</h3><p>Månedlige gjennomganger og løpende forbedring av innhold og regler.</p></li>
+    </ol>
+    <div class="included">
+      <span><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Fast kontaktperson</span>
+      <span><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Opplæring av redaktører</span>
+      <span><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Norsk support på hverdager</span>
+      <span><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Månedlig rapport</span>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0" aria-label="Pilot">
+  <div class="wrap">
+    <div class="cta-band">
+      <div class="cta-band-copy">
+        <h2 class="h3">Start med en gratis konsultasjon</h2>
+        <p>30 minutter uten kostnad og uten forpliktelser. Vil dere gå videre, starter vi med en pilot på seks uker med fast pris.</p>
+      </div>
+      <div class="cta-band-actions">
+        <a class="btn btn-primary" href="#kontakt">Book gratis konsultasjon</a>
+        <small>Eller ring oss på +47 41 76 12 52</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SPØRSMÅL ================= -->
+<section class="section alt" id="sporsmal">
+  <div class="wrap faq-layout">
+    <div>
+      <p class="overline">Spørsmål og svar</p>
+      <h2 class="h2">Det IT og innkjøp spør om først</h2>
+      <p class="lead">Finner du ikke svaret? Ta kontakt, så svarer vi innen én arbeidsdag.</p>
+    </div>
+    <div class="faq">
+      <details>
+        <summary>Hva koster den første konsultasjonen?<svg class="ic" aria-hidden="true"><use href="#i-down"/></svg></summary>
+        <p>Ingenting. Den første konsultasjonen på 30 minutter er gratis og forplikter dere ikke til noe.</p>
+      </details>
+      <details>
+        <summary>Hvilken språkmodell bruker Vintra?<svg class="ic" aria-hidden="true"><use href="#i-down"/></svg></summary>
+        <p>Vi bruker Google Gemini via betalt API. Avtalen deres angir hvilken modell som brukes, og dere varsles før en eventuell endring.</p>
+      </details>
+      <details>
+        <summary>Hva skjer når assistenten ikke vet svaret?<svg class="ic" aria-hidden="true"><use href="#i-down"/></svg></summary>
+        <p>Den sier at den ikke vet, og tilbyr å sende saken videre. Spørsmålet havner i innsiktsoversikten, slik at redaktørene kan fylle hullet.</p>
+      </details>
+      <details>
+        <summary>Må vi bytte saksbehandlingssystem?<svg class="ic" aria-hidden="true"><use href="#i-down"/></svg></summary>
+        <p>Nei. Vintra kobles til systemene dere bruker i dag via API og webhooks.</p>
+      </details>
+      <details>
+        <summary>Hvor mye arbeid krever en pilot fra oss?<svg class="ic" aria-hidden="true"><use href="#i-down"/></svg></summary>
+        <p>En produkteier og noen timer i uken fra en fagperson som godkjenner kilder og svar.</p>
+      </details>
+      <details>
+        <summary>Kan vi gjøre en vurdering av personvernkonsekvenser (DPIA) først?<svg class="ic" aria-hidden="true"><use href="#i-down"/></svg></summary>
+        <p>Ja. Vi leverer dokumentasjonen dere trenger og bistår i vurderingen før oppstart.</p>
+      </details>
+      <details>
+        <summary>Hvor lagres dataene?<svg class="ic" aria-hidden="true"><use href="#i-down"/></svg></summary>
+        <p>Data lagres og behandles i EU/EØS. Fullstendig oversikt over underleverandører følger databehandleravtalen.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ================= KONTAKT ================= -->
+<section class="section" id="kontakt">
+  <div class="wrap contact-layout">
+    <div>
+      <p class="overline">Gratis konsultasjon</p>
+      <h2 class="h2">Book en gratis konsultasjon</h2>
+      <p class="lead">30 minutter med oss, uten kostnad og uten forpliktelser. Vi ser på henvendelsene deres, viser plattformen med eksempler fra bransjen deres og gir en ærlig vurdering av hva AI kan løse.</p>
+      <ol class="next-steps">
+        <li><span class="step-n">1</span><div><b>Vi tar kontakt innen én arbeidsdag</b><span>for å finne et tidspunkt som passer.</span></div></li>
+        <li><span class="step-n">2</span><div><b>Konsultasjon på 30 minutter</b><span>Digitalt eller hos dere. Vi går gjennom behov, volum og systemer.</span></div></li>
+        <li><span class="step-n">3</span><div><b>Konkret forslag</b><span>Dere får en anbefaling og et tilbud på pilot, hvis det passer.</span></div></li>
+      </ol>
+      <div class="contact-person">
+        <div class="ph ph-oscar ph-round"><img src="img/oscar-ostby.webp" width="596" height="1024" loading="lazy" alt="Portrett av Oscar Østby"></div>
+        <div>
+          <b>Oscar Østby</b>
+          <span>Medeier og fullstack-utvikler</span>
+          <span>+47 41 76 12 52 · salg@vintranordic.com</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-card">
+      <!-- NB: Skjemaet er ikke koblet til noe ennå. Koble det til CRM eller e-post før publisering. -->
+      <h3 class="h4">Fortell oss litt om dere</h3>
+      <form class="form" id="demoForm">
+        <div class="frow">
+          <div class="field"><label for="f-first">Fornavn</label><input id="f-first" name="first" autocomplete="given-name" required></div>
+          <div class="field"><label for="f-last">Etternavn</label><input id="f-last" name="last" autocomplete="family-name" required></div>
+        </div>
+        <div class="frow">
+          <div class="field"><label for="f-email">Jobb-e-post</label><input id="f-email" name="email" type="email" autocomplete="email" required></div>
+          <div class="field"><label for="f-phone">Telefon <span class="opt">(valgfritt)</span></label><input id="f-phone" name="phone" type="tel" autocomplete="tel"></div>
+        </div>
+        <div class="frow">
+          <div class="field"><label for="f-org">Virksomhet</label><input id="f-org" name="org" autocomplete="organization" required></div>
+          <div class="field"><label for="f-size">Henvendelser per måned</label>
+            <select id="f-size" name="size">
+              <option>Under 5 000</option>
+              <option selected>5 000–25 000</option>
+              <option>25 000–100 000</option>
+              <option>Over 100 000</option>
+            </select>
+          </div>
+        </div>
+        <div class="field"><label for="f-msg">Hva ønsker dere å løse? <span class="opt">(valgfritt)</span></label><textarea id="f-msg" name="message"></textarea></div>
+        <label class="consent" for="f-consent"><input id="f-consent" type="checkbox" required>Jeg godtar at Vintra kontakter meg om denne henvendelsen. Les om hvordan vi behandler personopplysninger i personvernerklæringen.</label>
+        <div class="form-foot">
+          <button class="btn btn-primary" type="submit">Book gratis konsultasjon</button>
+          <small>Alle felt må fylles ut om ikke annet står.</small>
+        </div>
+      </form>
+      <div class="success" id="formSuccess" hidden>
+        <span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg></span>
+        <h3 class="h4">Takk, <span id="successName"></span>. Vi har mottatt forespørselen.</h3>
+        <p>Vi tar kontakt innen én arbeidsdag for å avtale et tidspunkt.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="logo" href="index.html"><svg width="28" height="28" aria-hidden="true"><use href="#logo"/></svg>Vintra</a>
+        <p>AI-kundeservice for store virksomheter.</p>
+        <div class="foot-contact"><span>+47 41 76 12 52</span><span>salg@vintranordic.com</span></div>
+      </div>
+      <div>
+        <h4>Produkt</h4>
+        <ul><li><a href="#produkt">Arbeidsflaten</a></li><li><a href="demo.html">Prøv demo</a></li><li><a href="#slik">Slik fungerer det</a></li><li><a href="#funksjoner">Sporbarhet</a></li><li><a href="#funksjoner">Innsikt</a></li></ul>
+      </div>
+      <div>
+        <h4>Bransjer</h4>
+        <ul><li><a href="#bransjer">Eiendomsmegling</a></li><li><a href="#bransjer">Bolig og borettslag</a></li><li><a href="#bransjer">Forsikring</a></li><li><a href="#bransjer">Bank og finans</a></li></ul>
+      </div>
+      <div>
+        <h4>Sikkerhet</h4>
+        <ul><li><a href="#sikkerhet">Sikkerhet og personvern</a></li><li><a href="#sikkerhet">Databehandleravtale</a></li><li><a href="#sikkerhet">Underleverandører</a></li></ul>
+      </div>
+      <div>
+        <h4>Selskap</h4>
+        <ul><li><a href="om-oss.html">Om oss</a></li><li><a href="om-oss.html#teamet">Ansatte</a></li><li><a href="#kontakt">Kontakt</a></li><li><a href="https://www.vintranordic.com/">For mindre bedrifter</a></li></ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Vintra · Org.nr. XXX XXX XXX · Postadresse fylles inn</span>
+      <nav aria-label="Juridisk">
+        <a href="#">Personvern</a><a href="#">Vilkår</a><a href="#">Informasjonskapsler</a><a href="#">Tilgjengelighetserklæring</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<nav class="tabbar" aria-label="Snarveier">
+  <a class="tab is-active" href="#top" data-section="top"><span class="pill"><svg class="ic" aria-hidden="true"><use href="#i-home"/></svg></span>Hjem</a>
+  <a class="tab" href="#produkt" data-section="produkt"><span class="pill"><svg class="ic" aria-hidden="true"><use href="#i-grid"/></svg></span>Produkt</a>
+  <a class="tab tab-cta" href="#kontakt"><span class="pill"><svg class="ic" aria-hidden="true"><use href="#i-calendar"/></svg></span>Gratis møte</a>
+  <a class="tab" href="demo.html"><span class="pill"><svg class="ic" aria-hidden="true"><use href="#i-sparkle"/></svg></span>Demo</a>
+  <a class="tab" href="om-oss.html"><span class="pill"><svg class="ic" aria-hidden="true"><use href="#i-users"/></svg></span>Om oss</a>
+</nav>
+
+<div class="cookie" id="cookie" role="dialog" aria-labelledby="cookieTitle" hidden>
+  <b id="cookieTitle">Vi bruker informasjonskapsler</b>
+  Nødvendige informasjonskapsler får nettsiden til å fungere. Med ditt samtykke bruker vi også informasjonskapsler for å måle bruk. Du kan endre valget når som helst. <a href="#">Les mer</a>
+  <div class="cookie-actions">
+    <button class="btn btn-secondary" type="button" data-choice="necessary">Kun nødvendige</button>
+    <button class="btn btn-secondary" type="button" data-choice="all">Godta alle</button>
+  </div>
+</div>
+
+<script src="script.js"></script>
+<script src="chat-widget.js"></script>
+<script>VintraChat.create(document.body, VintraChat.presets.vintra, { mode: "floating" });</script>
+</body>
+</html>

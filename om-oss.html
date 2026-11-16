@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="nb">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Om Vintra</title>
+<meta name="description" content="Møt menneskene bak Vintra, et norsk selskap som lager AI-kundeservice for store virksomheter.">
+<meta name="theme-color" content="#FFFFFF">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://images.unsplash.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="chat-widget.css">
+</head>
+<body>
+<!-- NB: Teambildet øverst er en plassholder fra Unsplash. Portrettene av de ansatte ligger i img/.
+     LinkedIn-lenkene må fylles inn. -->
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="vg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1F4ED8"/><stop offset="1" stop-color="#3B82F6"/></linearGradient>
+    <symbol id="logo" viewBox="0 0 32 32"><path d="M4.5 7 12.6 25.5 16.6 16" fill="none" stroke="url(#vg)" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22.6" cy="11.6" r="7.2" fill="url(#vg)"/><circle cx="19.9" cy="11.6" r="1.25" fill="#fff"/><circle cx="22.6" cy="11.6" r="1.25" fill="#fff"/><circle cx="25.3" cy="11.6" r="1.25" fill="#fff"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14m0 0-5.5-5.5M19 12l-5.5 5.5"/></symbol>
+    <symbol id="i-flag" viewBox="0 0 24 24"><path d="M5 21V4.5M5 4.5h12l-2.5 4 2.5 4H5"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5h16v11H9.5L4 20z"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24"><path d="M3 12c.6-1.6 4-6 9-6s8.4 4.4 9 6c-.6 1.6-4 6-9 6s-8.4-4.4-9-6z"/><circle cx="12" cy="12" r="2.8"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7 3v5.2c0 4.4-3 8.1-7 9.8-4-1.7-7-5.4-7-9.8V6z"/><path d="M9 12l2.2 2.2L15.4 10"/></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 10.8 12 4l8 6.8V20h-5.5v-5.5h-5V20H4z"/></symbol>
+    <symbol id="i-grid" viewBox="0 0 24 24"><rect x="4" y="4" width="6.5" height="6.5" rx="1.5"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.5"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.5"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.5"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="4" y="5.5" width="16" height="14.5" rx="2"/><path d="M4 10h16M8.5 3.5v4M15.5 3.5v4"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8.5" r="3.2"/><path d="M3.5 19.5c.7-3.1 2.9-4.9 5.5-4.9s4.8 1.8 5.5 4.9"/><path d="M15.5 5.6a3.2 3.2 0 0 1 0 6M17.5 14.9c1.6.6 2.6 2.2 3 4.6"/></symbol>
+    <symbol id="i-sparkle" viewBox="0 0 24 24"><path d="M12 3.5l1.9 5.1 5.1 1.9-5.1 1.9L12 17.5l-1.9-5.1L5 10.5l5.1-1.9z"/><path d="M18.5 15.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7z"/></symbol>
+    <symbol id="i-li" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.5h4v11H3zM9.5 9.5h3.8v1.6h.1c.5-1 1.8-2 3.8-2 4 0 4.8 2.6 4.8 6v5.4h-4v-4.8c0-1.2 0-2.6-1.6-2.6s-1.9 1.3-1.9 2.5v4.9h-4z"/></symbol>
+  </defs>
+</svg>
+
+<a class="skip" href="#main">Hopp til innhold</a>
+
+<div class="util">
+  <div class="wrap">
+    <a href="https://www.vintranordic.com/">Liten bedrift? Se Vintra for nettsider og chatbot</a>
+    <div class="util-right">
+      <a href="index.html#kontakt">Kundestøtte</a>
+      <a href="index.html#sikkerhet">Sikkerhet</a>
+      <a href="#" aria-current="true">Norsk</a>
+    </div>
+  </div>
+</div>
+
+<header class="header">
+  <div class="wrap header-row">
+    <a class="logo" href="index.html" aria-label="Vintra, forsiden">
+      <svg width="30" height="30" aria-hidden="true"><use href="#logo"/></svg>Vintra
+    </a>
+    <nav aria-label="Hovedmeny">
+      <ul class="mainnav">
+        <li><a href="index.html#produkt">Produkt</a></li>
+        <li><a href="index.html#bransjer">Bransjer</a></li>
+        <li><a href="index.html#sikkerhet">Sikkerhet</a></li>
+        <li><a href="demo.html">Prøv demo</a></li>
+        <li><a href="om-oss.html" aria-current="page">Om oss</a></li>
+      </ul>
+    </nav>
+    <div class="header-cta">
+      <a class="login" href="https://www.vintranordic.com/auth/login">Logg inn</a>
+      <a class="btn btn-primary btn-sm" href="index.html#kontakt">Gratis konsultasjon</a>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+<section class="page-hero">
+  <div class="wrap">
+    <p class="overline">Om Vintra</p>
+    <h1 class="h1" style="max-width:20ch">Vi lager AI-kundeservice virksomheter kan stole på</h1>
+    <p class="lead">Vintra er et norsk selskap som utvikler AI-assistenter for kundeservice. Selskapet eies og drives av tre utviklere som jobber tett med hver kunde, fra første konsultasjon til daglig drift.</p>
+    <img class="photo wide-photo" src="https://images.unsplash.com/photo-1603201667230-bd139210db18?auto=format&fit=crop&w=2000&h=860&q=80" width="2000" height="860" alt="Kolleger samarbeider rundt en bærbar PC i et kontor" fetchpriority="high">
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="overline">Slik jobber vi</p>
+      <h2 class="h2">Tett på kundene, åpne om teknologien</h2>
+    </div>
+    <div class="about-facts">
+      <article class="card"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-flag"/></svg></span><h3 class="h4">Norsk selskap</h3><p>Avtaler, support og dokumentasjon er på norsk, og vi kjenner kravene norske virksomheter har.</p></article>
+      <article class="card"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-chat"/></svg></span><h3 class="h4">Ingen mellomledd</h3><p>Dere snakker direkte med de som eier og bygger Vintra. Spørsmål blir besvart av den som kan svaret.</p></article>
+      <article class="card"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-eye"/></svg></span><h3 class="h4">Åpne om teknologien</h3><p>Vi forteller hvilken språkmodell vi bruker, hvor data lagres og hvem underleverandørene er.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="section alt" id="teamet">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="overline">Ansatte</p>
+      <h2 class="h2">Møt teamet</h2>
+      <p class="lead">Tre medeiere, tre utviklere. Det er oss dere møter i konsultasjonen, i piloten og i daglig drift.</p>
+    </div>
+    <div class="team-grid">
+      <article class="member">
+        <div class="ph ph-oscar"><img src="img/oscar-ostby.webp" width="596" height="1024" alt="Portrett av Oscar Østby"></div>
+        <div class="member-text">
+          <b>Oscar Østby</b><span class="role">Medeier og fullstack-utvikler</span>
+          <p>Skriver kode i alle lag av stacken og har pannebåndet klart når noe skal leveres. Svarer på e-post raskere enn chatboten.</p>
+          <a class="li" href="#" aria-label="LinkedIn-profilen til Oscar Østby"><svg aria-hidden="true"><use href="#i-li"/></svg></a>
+        </div>
+      </article>
+      <article class="member">
+        <img class="photo ph-martin" src="img/martin-secker.png" width="512" height="768" alt="Portrett av Martin Secker">
+        <div class="member-text">
+          <b>Martin Secker</b><span class="role">Medeier og utvikler</span>
+          <p>Leder an både i kodebasen og på fredagspilsen. Feirer hver eneste lansering, grundig, og er alltid først i landslagsdrakta.</p>
+          <a class="li" href="#" aria-label="LinkedIn-profilen til Martin Secker"><svg aria-hidden="true"><use href="#i-li"/></svg></a>
+        </div>
+      </article>
+      <article class="member">
+        <img class="photo ph-contain" src="img/kaktus.png" width="465" height="768" alt="Kaktus i potte, profilbildet til Kaktus">
+        <div class="member-text">
+          <b>Kaktus</b><span class="role">Medeier og fullstack-utvikler</span>
+          <p>Ingen vet helt hva han gjør, men uten ham faller alt sammen. Holder strukturen oppe, klager konstruktivt på det meste og klarer seg på én kopp vann i uka.</p>
+          <a class="li" href="#" aria-label="LinkedIn-profilen til Kaktus"><svg aria-hidden="true"><use href="#i-li"/></svg></a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="join">
+      <div>
+        <h2 class="h3">Vil du jobbe med oss?</h2>
+        <p>Vi ser etter utviklere og rådgivere som vil gjøre kundeservice bedre for norske virksomheter.</p>
+      </div>
+      <a class="btn btn-secondary" href="index.html#kontakt">Ta kontakt</a>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0" aria-label="Gratis konsultasjon">
+  <div class="wrap">
+    <div class="cta-band">
+      <div class="cta-band-copy">
+        <h2 class="h3">Start med en gratis konsultasjon</h2>
+        <p>30 minutter med oss, uten kostnad og uten forpliktelser.</p>
+      </div>
+      <div class="cta-band-actions">
+        <a class="btn btn-primary" href="index.html#kontakt">Book gratis konsultasjon</a>
+        <small>Eller ring oss på +47 41 76 12 52</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="logo" href="index.html"><svg width="28" height="28" aria-hidden="true"><use href="#logo"/></svg>Vintra</a>
+        <p>AI-kundeservice for store virksomheter.</p>
+        <div class="foot-contact"><span>+47 41 76 12 52</span><span>salg@vintranordic.com</span></div>
+      </div>
+      <div>
+        <h4>Produkt</h4>
+        <ul><li><a href="index.html#produkt">Arbeidsflaten</a></li><li><a href="demo.html">Prøv demo</a></li><li><a href="index.html#slik">Slik fungerer det</a></li><li><a href="index.html#funksjoner">Sporbarhet</a></li><li><a href="index.html#funksjoner">Innsikt</a></li></ul>
+      </div>
+      <div>
+        <h4>Bransjer</h4>
+        <ul><li><a href="index.html#bransjer">Eiendomsmegling</a></li><li><a href="index.html#bransjer">Bolig og borettslag</a></li><li><a href="index.html#bransjer">Forsikring</a></li><li><a href="index.html#bransjer">Bank og finans</a></li></ul>
+      </div>
+      <div>
+        <h4>Sikkerhet</h4>
+        <ul><li><a href="index.html#sikkerhet">Sikkerhet og personvern</a></li><li><a href="index.html#sikkerhet">Databehandleravtale</a></li><li><a href="index.html#sikkerhet">Underleverandører</a></li></ul>
+      </div>
+      <div>
+        <h4>Selskap</h4>
+        <ul><li><a href="om-oss.html">Om oss</a></li><li><a href="#teamet">Ansatte</a></li><li><a href="index.html#kontakt">Kontakt</a></li><li><a href="https://www.vintranordic.com/">For mindre bedrifter</a></li></ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Vintra · Org.nr. XXX XXX XXX · Postadresse fylles inn</span>
+      <nav aria-label="Juridisk">
+        <a href="#">Personvern</a><a href="#">Vilkår</a><a href="#">Informasjonskapsler</a><a href="#">Tilgjengelighetserklæring</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<nav class="tabbar" aria-label="Snarveier">
+  <a class="tab" href="index.html#top"><span class="pill"><svg class="ic" aria-hidden="true"><use href="#i-home"/></svg></span>Hjem</a>
+  <a class="tab" href="index.html#produkt"><span class="pill"><svg class="ic" aria-hidden="true"><use href="#i-grid"/></svg></span>Produkt</a>
+  <a class="tab tab-cta" href="index.html#kontakt"><span class="pill"><svg class="ic" aria-hidden="true"><use href="#i-calendar"/></svg></span>Gratis møte</a>
+  <a class="tab" href="demo.html"><span class="pill"><svg class="ic" aria-hidden="true"><use href="#i-sparkle"/></svg></span>Demo</a>
+  <a class="tab is-active" href="om-oss.html" aria-current="page"><span class="pill"><svg class="ic" aria-hidden="true"><use href="#i-users"/></svg></span>Om oss</a>
+</nav>
+
+<div class="cookie" id="cookie" role="dialog" aria-labelledby="cookieTitle" hidden>
+  <b id="cookieTitle">Vi bruker informasjonskapsler</b>
+  Nødvendige informasjonskapsler får nettsiden til å fungere. Med ditt samtykke bruker vi også informasjonskapsler for å måle bruk. Du kan endre valget når som helst. <a href="#">Les mer</a>
+  <div class="cookie-actions">
+    <button class="btn btn-secondary" type="button" data-choice="necessary">Kun nødvendige</button>
+    <button class="btn btn-secondary" type="button" data-choice="all">Godta alle</button>
+  </div>
+</div>
+
+<script src="script.js"></script>
+<script src="chat-widget.js"></script>
+<script>VintraChat.create(document.body, VintraChat.presets.vintra, { mode: "floating" });</script>
+</body>
+</html>

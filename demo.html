@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="nb">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Vintra demoportal</title>
+<meta name="description" content="Lag din egen chatbot på fem minutter. Velg bransje, tilpass utseendet og legg inn egne svar. Alt kjører lokalt i nettleseren.">
+<meta name="theme-color" content="#FFFFFF">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://images.unsplash.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="chat-widget.css">
+<link rel="stylesheet" href="demo.css">
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="vg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1F4ED8"/><stop offset="1" stop-color="#3B82F6"/></linearGradient>
+    <symbol id="logo" viewBox="0 0 32 32"><path d="M4.5 7 12.6 25.5 16.6 16" fill="none" stroke="url(#vg)" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22.6" cy="11.6" r="7.2" fill="url(#vg)"/><circle cx="19.9" cy="11.6" r="1.25" fill="#fff"/><circle cx="22.6" cy="11.6" r="1.25" fill="#fff"/><circle cx="25.3" cy="11.6" r="1.25" fill="#fff"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.2 4.2L19 7"/></symbol>
+    <symbol id="i-down" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 10.8 12 4l8 6.8V20h-5.5v-5.5h-5V20H4z"/></symbol>
+    <symbol id="i-grid" viewBox="0 0 24 24"><rect x="4" y="4" width="6.5" height="6.5" rx="1.5"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.5"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.5"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.5"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="4" y="5.5" width="16" height="14.5" rx="2"/><path d="M4 10h16M8.5 3.5v4M15.5 3.5v4"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8.5" r="3.2"/><path d="M3.5 19.5c.7-3.1 2.9-4.9 5.5-4.9s4.8 1.8 5.5 4.9"/><path d="M15.5 5.6a3.2 3.2 0 0 1 0 6M17.5 14.9c1.6.6 2.6 2.2 3 4.6"/></symbol>
+    <symbol id="i-sparkle" viewBox="0 0 24 24"><path d="M12 3.5l1.9 5.1 5.1 1.9-5.1 1.9L12 17.5l-1.9-5.1L5 10.5l5.1-1.9z"/><path d="M18.5 15.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7z"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5h16v11H9.5L4 20z"/></symbol>
+    <symbol id="i-house" viewBox="0 0 24 24"><path d="M4 10.8 12 4l8 6.8V20h-5.5v-5.5h-5V20H4z"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7 3v5.2c0 4.4-3 8.1-7 9.8-4-1.7-7-5.4-7-9.8V6z"/></symbol>
+    <symbol id="i-bag" viewBox="0 0 24 24"><path d="M5.5 8h13l-1 12h-11z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></symbol>
+    <symbol id="i-person" viewBox="0 0 24 24"><circle cx="12" cy="8.5" r="3.5"/><path d="M5 20c1-3.6 3.8-5.6 7-5.6s6 2 7 5.6"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-reset" viewBox="0 0 24 24"><path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3"/><path d="M4.5 4v4h4"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5.5A1.5 1.5 0 0 0 14.5 4h-9A1.5 1.5 0 0 0 4 5.5v9A1.5 1.5 0 0 0 5.5 16H8"/></symbol>
+    <symbol id="i-monitor" viewBox="0 0 24 24"><rect x="3.5" y="4.5" width="17" height="11.5" rx="1.5"/><path d="M9 20h6M12 16v4"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><rect x="7" y="3" width="10" height="18" rx="2"/><path d="M11 17.5h2"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="10" rx="2"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5.5C4 4.7 4.7 4 5.5 4H11v16H5.5c-.8 0-1.5-.7-1.5-1.5z"/><path d="M20 5.5c0-.8-.7-1.5-1.5-1.5H13v16h5.5c.8 0 1.5-.7 1.5-1.5z"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></symbol>
+    <symbol id="i-doc" viewBox="0 0 24 24"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5"/><path d="M10 13h6M10 17h4"/></symbol>
+    <symbol id="i-transfer" viewBox="0 0 24 24"><path d="M4 8h13m0 0-4-4m4 4-4 4M20 16H7m0 0 4-4m-4 4 4 4"/></symbol>
+    <symbol id="i-cpu" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9.5 9.5h5v5h-5zM9 3v3M15 3v3M9 18v3M15 18v3M3 9h3M3 15h3M18 9h3M18 15h3"/></symbol>
+  </defs>
+</svg>
+
+<a class="skip" href="#main">Hopp til innhold</a>
+
+<div class="util">
+  <div class="wrap">
+    <a href="https://www.vintranordic.com/">Liten bedrift? Se Vintra for nettsider og chatbot</a>
+    <div class="util-right">
+      <a href="index.html#kontakt">Kundestøtte</a>
+      <a href="index.html#sikkerhet">Sikkerhet</a>
+      <a href="#" aria-current="true">Norsk</a>
+    </div>
+  </div>
+</div>
+
+<header class="header">
+  <div class="wrap header-row">
+    <a class="logo" href="index.html" aria-label="Vintra, forsiden">
+      <svg width="30" height="30" aria-hidden="true"><use href="#logo"/></svg>Vintra
+    </a>
+    <nav aria-label="Hovedmeny">
+      <ul class="mainnav">
+        <li><a href="index.html#produkt">Produkt</a></li>
+        <li><a href="index.html#bransjer">Bransjer</a></li>
+        <li><a href="index.html#sikkerhet">Sikkerhet</a></li>
+        <li><a href="demo.html" aria-current="page">Prøv demo</a></li>
+        <li><a href="om-oss.html">Om oss</a></li>
+      </ul>
+    </nav>
+    <div class="header-cta">
+      <a class="login" href="https://www.vintranordic.com/auth/login">Logg inn</a>
+      <a class="btn btn-primary btn-sm" href="index.html#kontakt">Gratis konsultasjon</a>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+<section class="demo-hero">
+  <div class="wrap">
+    <p class="overline">Demoportal</p>
+    <h1 class="h1" style="max-width:22ch">Lag din egen chatbot på fem minutter</h1>
+    <p class="lead">Velg en bransje, tilpass utseendet og legg inn egne spørsmål og svar. Forhåndsvisningen oppdaterer seg mens du jobber, og du kan snakke med chatboten med en gang.</p>
+    <div class="demo-badges">
+      <span><svg class="ic" aria-hidden="true"><use href="#i-lock"/></svg>Kjører lokalt i nettleseren</span>
+      <span><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Ingen konto</span>
+      <span><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Ingenting sendes til oss</span>
+    </div>
+  </div>
+</section>
+
+<section class="portal-wrap" aria-label="Demoportal">
+  <div class="wrap">
+    <div class="portal" id="portal" data-view="edit">
+      <div class="portal-bar">
+        <div class="portal-ws"><span class="ws-logo" id="wsLogo">E</span><span id="wsName">Demo · Eksempel Eiendom</span></div>
+        <div class="seg-ctl device-ctl" role="group" aria-label="Forhåndsvis som">
+          <button type="button" data-dev="desktop" aria-pressed="true"><svg class="ic" aria-hidden="true"><use href="#i-monitor"/></svg>PC</button>
+          <button type="button" data-dev="mobile" aria-pressed="false"><svg class="ic" aria-hidden="true"><use href="#i-phone"/></svg>Mobil</button>
+        </div>
+        <div class="portal-status">
+          <span class="saved" id="saveStatus">Lagret lokalt</span>
+          <button type="button" class="btn-ghost" id="resetBtn"><svg class="ic" aria-hidden="true"><use href="#i-reset"/></svg>Tilbakestill</button>
+        </div>
+      </div>
+
+      <div class="mobile-switch">
+        <div class="seg-ctl" role="group" aria-label="Visning">
+          <button type="button" data-v="edit" aria-pressed="true">Rediger</button>
+          <button type="button" data-v="preview" aria-pressed="false">Forhåndsvis og test</button>
+        </div>
+      </div>
+
+      <div class="portal-body">
+        <!-- ===== Innstillinger ===== -->
+        <div class="settings">
+          <div class="stabs" role="tablist" aria-label="Innstillinger">
+            <button class="stab" role="tab" id="t-mal" aria-controls="p-mal" aria-selected="true">Mal</button>
+            <button class="stab" role="tab" id="t-design" aria-controls="p-design" aria-selected="false" tabindex="-1">Design</button>
+            <button class="stab" role="tab" id="t-utseende" aria-controls="p-utseende" aria-selected="false" tabindex="-1">Utseende</button>
+            <button class="stab" role="tab" id="t-innhold" aria-controls="p-innhold" aria-selected="false" tabindex="-1">Innhold</button>
+            <button class="stab" role="tab" id="t-oppforsel" aria-controls="p-oppforsel" aria-selected="false" tabindex="-1">Oppførsel</button>
+            <button class="stab" role="tab" id="t-installer" aria-controls="p-installer" aria-selected="false" tabindex="-1">Installer</button>
+          </div>
+
+          <div class="spanel" id="p-mal" role="tabpanel" aria-labelledby="t-mal">
+            <p class="spanel-intro">Start med en ferdig mal. Den fyller inn utseende, velkomstmelding og eksempler på spørsmål og svar, som du kan endre etterpå.</p>
+            <div class="templates">
+              <button type="button" class="tpl" data-template="eiendom" aria-pressed="true"><span class="tpl-ic" style="--c:#0F5A4A"><svg class="ic" aria-hidden="true"><use href="#i-house"/></svg></span><b>Eiendomsmegling</b><span>Visninger, felleskostnader og budrunder.</span></button>
+              <button type="button" class="tpl" data-template="forsikring" aria-pressed="false"><span class="tpl-ic" style="--c:#1F4ED8"><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg></span><b>Forsikring</b><span>Dekning, skademelding og faktura.</span></button>
+              <button type="button" class="tpl" data-template="butikk" aria-pressed="false"><span class="tpl-ic" style="--c:#B4471C"><svg class="ic" aria-hidden="true"><use href="#i-bag"/></svg></span><b>Nettbutikk</b><span>Levering, retur og ordrer.</span></button>
+              <button type="button" class="tpl" data-template="tom" aria-pressed="false"><span class="tpl-ic" style="--c:#334155"><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg></span><b>Start fra bunnen</b><span>Én eksempelsvar, resten fyller du inn.</span></button>
+            </div>
+            <p class="note">Endringene lagres i denne nettleseren, så de er her neste gang du åpner siden. Velger du en ny mal, erstattes oppsettet.</p>
+          </div>
+
+          <div class="spanel" id="p-design" role="tabpanel" aria-labelledby="t-design" hidden>
+            <p class="spanel-intro">Velg et ferdig design. Det endrer bare utseendet, ikke innholdet. Etterpå kan du justere farge, hjørner og resten under Utseende.</p>
+            <div class="design-grid" id="designGrid"></div>
+          </div>
+
+          <div class="spanel" id="p-utseende" role="tabpanel" aria-labelledby="t-utseende" hidden>
+            <div class="ctl-row">
+              <div class="ctl"><label for="cfg-company">Firmanavn</label><input type="text" id="cfg-company"></div>
+              <div class="ctl"><label for="cfg-bot">Navn på assistenten</label><input type="text" id="cfg-bot"></div>
+            </div>
+            <div class="ctl"><label for="cfg-sub">Undertekst</label><input type="text" id="cfg-sub"></div>
+            <div class="ctl">
+              <span class="ctl-label">Hovedfarge</span>
+              <div class="swatches">
+                <button type="button" class="swatch" data-color="#1f4ed8" style="--c:#1F4ED8" aria-label="Blå"></button>
+                <button type="button" class="swatch" data-color="#0f5a4a" style="--c:#0F5A4A" aria-label="Grønn"></button>
+                <button type="button" class="swatch" data-color="#b4471c" style="--c:#B4471C" aria-label="Rust"></button>
+                <button type="button" class="swatch" data-color="#6d28d9" style="--c:#6D28D9" aria-label="Lilla"></button>
+                <button type="button" class="swatch" data-color="#0e7490" style="--c:#0E7490" aria-label="Petrol"></button>
+                <button type="button" class="swatch" data-color="#111827" style="--c:#111827" aria-label="Sort"></button>
+                <label class="color-input"><input type="color" id="cfg-color" aria-label="Velg egen farge"><span id="cfg-color-val"></span></label>
+              </div>
+            </div>
+            <div class="ctl">
+              <span class="ctl-label">Ikon</span>
+              <div class="icon-pick">
+                <button type="button" data-icon="chat" aria-label="Snakkeboble"><svg class="ic" aria-hidden="true"><use href="#i-chat"/></svg></button>
+                <button type="button" data-icon="sparkle" aria-label="Gnist"><svg class="ic" aria-hidden="true"><use href="#i-sparkle"/></svg></button>
+                <button type="button" data-icon="house" aria-label="Hus"><svg class="ic" aria-hidden="true"><use href="#i-house"/></svg></button>
+                <button type="button" data-icon="shield" aria-label="Skjold"><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg></button>
+                <button type="button" data-icon="bag" aria-label="Handlepose"><svg class="ic" aria-hidden="true"><use href="#i-bag"/></svg></button>
+                <button type="button" data-icon="person" aria-label="Person"><svg class="ic" aria-hidden="true"><use href="#i-person"/></svg></button>
+              </div>
+            </div>
+            <div class="ctl-row">
+              <div class="ctl">
+                <span class="ctl-label">Knapp</span>
+                <div class="seg-ctl" role="group" aria-label="Knappestil">
+                  <button type="button" data-launcher="round">Rund</button>
+                  <button type="button" data-launcher="pill">Med tekst</button>
+                </div>
+              </div>
+              <div class="ctl">
+                <span class="ctl-label">Plassering</span>
+                <div class="seg-ctl" role="group" aria-label="Plassering">
+                  <button type="button" data-position="left">Venstre</button>
+                  <button type="button" data-position="right">Høyre</button>
+                </div>
+              </div>
+            </div>
+            <div class="ctl" id="launchTextCtl"><label for="cfg-launchtext">Tekst på knappen</label><input type="text" id="cfg-launchtext"></div>
+            <div class="ctl-row">
+              <div class="ctl">
+                <span class="ctl-label">Tema</span>
+                <div class="seg-ctl" role="group" aria-label="Tema">
+                  <button type="button" data-themeopt="light">Lyst</button>
+                  <button type="button" data-themeopt="dark">Mørkt</button>
+                </div>
+              </div>
+              <div class="ctl">
+                <label for="cfg-radius">Runde hjørner</label>
+                <div class="range-row"><input type="range" id="cfg-radius" min="0" max="28" step="1"><output id="cfg-radius-out" for="cfg-radius"></output></div>
+              </div>
+            </div>
+            <div class="ctl">
+              <span class="ctl-label">Skrift</span>
+              <div class="seg-ctl" role="group" aria-label="Skrift">
+                <button type="button" data-font="plex">Standard</button>
+                <button type="button" data-font="system">System</button>
+                <button type="button" data-font="rounded">Rund</button>
+                <button type="button" data-font="serif">Serif</button>
+              </div>
+            </div>
+            <label class="check"><input type="checkbox" id="cfg-brand">Vis «Drevet av Vintra»</label>
+          </div>
+
+          <div class="spanel" id="p-innhold" role="tabpanel" aria-labelledby="t-innhold" hidden>
+            <div class="ctl"><label for="cfg-greeting">Velkomstmelding</label><textarea id="cfg-greeting"></textarea></div>
+            <div class="ctl"><label for="cfg-quick">Forslag til spørsmål</label><textarea id="cfg-quick"></textarea><small>Ett forslag per linje. Vises som knapper når samtalen starter.</small></div>
+            <div class="divider"></div>
+            <div class="kb-head"><b>Spørsmål og svar</b><span id="kbCount"></span></div>
+            <p class="spanel-intro" style="margin-top:-12px">Dette er kunnskapen chatboten svarer ut fra. Nøkkelordene hjelper den å finne riktig svar.</p>
+            <div class="kb-list" id="kbList"></div>
+            <button type="button" class="btn btn-secondary btn-sm" id="kbAdd" style="justify-self:start"><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg>Legg til spørsmål og svar</button>
+          </div>
+
+          <div class="spanel" id="p-oppforsel" role="tabpanel" aria-labelledby="t-oppforsel" hidden>
+            <div class="ctl">
+              <span class="ctl-label">Tone</span>
+              <div class="seg-ctl" role="group" aria-label="Tone">
+                <button type="button" data-tone="vennlig">Vennlig</button>
+                <button type="button" data-tone="profesjonell">Profesjonell</button>
+                <button type="button" data-tone="kort">Kortfattet</button>
+              </div>
+              <small>Kortfattet svarer bare med første setning.</small>
+            </div>
+            <label class="check"><input type="checkbox" id="cfg-sources">Vis kilden under hvert svar</label>
+            <div class="ctl"><label for="cfg-fallback">Når chatboten ikke finner svaret</label><textarea id="cfg-fallback"></textarea></div>
+            <div class="divider"></div>
+            <div class="ctl"><label for="cfg-handoffkw">Send til et menneske når kunden skriver</label><input type="text" id="cfg-handoffkw"><small>Skill ordene med komma, for eksempel «klage, snakke med».</small></div>
+            <div class="ctl"><label for="cfg-handoffmsg">Melding ved overføring</label><textarea id="cfg-handoffmsg"></textarea></div>
+          </div>
+
+          <div class="spanel" id="p-installer" role="tabpanel" aria-labelledby="t-installer" hidden>
+            <p class="spanel-intro">Når oppsettet er klart, legges chatboten inn på nettsiden med én kodelinje.</p>
+            <ol class="steps-mini">
+              <li>Kopier koden under.</li>
+              <li>Lim den inn rett før <code>&lt;/body&gt;</code> på nettsiden.</li>
+              <li>Chatboten dukker opp nede i hjørnet.</li>
+            </ol>
+            <div class="code-box">
+              <pre class="code" id="embedCode"></pre>
+              <button type="button" class="btn-ghost" id="copyCode"><svg class="ic" aria-hidden="true"><use href="#i-copy"/></svg><span>Kopier</span></button>
+            </div>
+            <p class="note">Dette er eksempelkode. Dere får ekte kode og en egen nøkkel når dere blir kunde.</p>
+            <button type="button" class="btn btn-secondary btn-sm" id="copyJson" style="justify-self:start"><svg class="ic" aria-hidden="true"><use href="#i-copy"/></svg><span>Kopier oppsettet som JSON</span></button>
+          </div>
+        </div>
+
+        <!-- ===== Forhåndsvisning ===== -->
+        <div class="preview-area">
+          <div class="preview-tools">
+            <small>Forhåndsvisning. Skriv til chatboten for å teste den.</small>
+            <button type="button" class="btn-ghost" id="restartChat"><svg class="ic" aria-hidden="true"><use href="#i-reset"/></svg>Start samtalen på nytt</button>
+          </div>
+          <div class="pframe" id="pframe" data-device="desktop">
+            <div class="pframe-bar"><div class="pframe-url"><svg class="ic" aria-hidden="true"><use href="#i-lock"/></svg><span id="pUrl">eksempel-eiendom.no</span></div></div>
+            <div class="psite" aria-hidden="true">
+              <div class="ps-nav"><span class="ps-logo" id="psLogo">E</span><span class="ps-name" id="psName">Eksempel Eiendom</span><span class="ps-links"><span>Boliger</span><span>Selge</span><span>Kontakt</span></span></div>
+              <div class="ps-hero">
+                <div><h3 id="psHead"></h3><p id="psText"></p><span class="ps-btn" id="psBtn"></span></div>
+                <img class="ps-img" id="psImg" alt="">
+              </div>
+              <div class="ps-cards"><div></div><div></div><div></div></div>
+            </div>
+          </div>
+          <p class="preview-hint" id="previewHint"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section alt" id="slik-virker">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="overline">Slik fungerer det</p>
+      <h2 class="h2">Fra spørsmål til svar på under ett sekund</h2>
+      <p class="lead">Chatboten svarer bare ut fra kunnskapen du gir den. Finner den ikke svaret, sier den fra og sender kunden videre.</p>
+    </div>
+    <div class="how-grid">
+      <article class="card"><span class="step-n">1</span><h3 class="h4">Kunden spør</h3><p>Kunden skriver med egne ord, eller trykker på et av forslagene.</p></article>
+      <article class="card"><span class="step-n">2</span><h3 class="h4">Riktig kilde finnes</h3><p>Spørsmålet sammenlignes med spørsmålene og nøkkelordene i kunnskapsbasen.</p></article>
+      <article class="card"><span class="step-n">3</span><h3 class="h4">Svar med kilde</h3><p>Kunden får svaret i tonen du har valgt, med kilden under så det kan sjekkes.</p></article>
+      <article class="card"><span class="step-n">4</span><h3 class="h4">Mennesket tar over</h3><p>Ved klager, ord du har valgt eller ukjente spørsmål går saken videre til dere.</p></article>
+    </div>
+    <div class="compare">
+      <article class="card">
+        <h3 class="h4"><span class="ic-box" style="margin:0"><svg class="ic" aria-hidden="true"><use href="#i-lock"/></svg></span>I denne demoen</h3>
+        <ul class="checks">
+          <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Alt kjører i nettleseren din, og ingenting sendes til oss</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Svarene finnes med enkel ordmatching mot spørsmålene du legger inn</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Oppsettet lagres lokalt, så det er her neste gang</li>
+        </ul>
+      </article>
+      <article class="card">
+        <h3 class="h4"><span class="ic-box" style="margin:0"><svg class="ic" aria-hidden="true"><use href="#i-cpu"/></svg></span>I den ekte løsningen</h3>
+        <ul class="checks">
+          <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Google Gemini forstår spørsmålet og formulerer svaret fra deres godkjente kilder</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Hjelpesenter, PDF-er og intranett kobles til, uten at du skriver inn alt selv</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Overførte saker havner i saksbehandlingssystemet med hele samtalen</li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Gratis konsultasjon">
+  <div class="wrap">
+    <div class="cta-band">
+      <div class="cta-band-copy">
+        <h2 class="h3">Vil du se den med deres eget innhold?</h2>
+        <p>Book en gratis konsultasjon, så setter vi opp chatboten med eksempler fra deres egen nettside.</p>
+      </div>
+      <div class="cta-band-actions">
+        <a class="btn btn-primary" href="index.html#kontakt">Book gratis konsultasjon</a>
+        <small>Eller ring oss på +47 41 76 12 52</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="logo" href="index.html"><svg width="28" height="28" aria-hidden="true"><use href="#logo"/></svg>Vintra</a>
+        <p>AI-kundeservice for store virksomheter.</p>
+        <div class="foot-contact"><span>+47 41 76 12 52</span><span>salg@vintranordic.com</span></div>
+      </div>
+      <div>
+        <h4>Produkt</h4>
+        <ul><li><a href="index.html#produkt">Arbeidsflaten</a></li><li><a href="demo.html">Prøv demo</a></li><li><a href="index.html#slik">Slik fungerer det</a></li><li><a href="index.html#funksjoner">Innsikt</a></li></ul>
+      </div>
+      <div>
+        <h4>Bransjer</h4>
+        <ul><li><a href="index.html#bransjer">Eiendomsmegling</a></li><li><a href="index.html#bransjer">Bolig og borettslag</a></li><li><a href="index.html#bransjer">Forsikring</a></li><li><a href="index.html#bransjer">Bank og finans</a></li></ul>
+      </div>
+      <div>
+        <h4>Sikkerhet</h4>
+        <ul><li><a href="index.html#sikkerhet">Sikkerhet og personvern</a></li><li><a href="index.html#sikkerhet">Databehandleravtale</a></li><li><a href="index.html#sikkerhet">Underleverandører</a></li></ul>
+      </div>
+      <div>
+        <h4>Selskap</h4>
+        <ul><li><a href="om-oss.html">Om oss</a></li><li><a href="om-oss.html#teamet">Ansatte</a></li><li><a href="index.html#kontakt">Kontakt</a></li><li><a href="https://www.vintranordic.com/">For mindre bedrifter</a></li></ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Vintra · Org.nr. XXX XXX XXX · Postadresse fylles inn</span>
+      <nav aria-label="Juridisk">
+        <a href="#">Personvern</a><a href="#">Vilkår</a><a href="#">Informasjonskapsler</a><a href="#">Tilgjengelighetserklæring</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<nav class="tabbar" aria-label="Snarveier">
+  <a class="tab" href="index.html#top"><span class="pill"><svg class="ic" aria-hidden="true"><use href="#i-home"/></svg></span>Hjem</a>
+  <a class="tab" href="index.html#produkt"><span class="pill"><svg class="ic" aria-hidden="true"><use href="#i-grid"/></svg></span>Produkt</a>
+  <a class="tab tab-cta" href="index.html#kontakt"><span class="pill"><svg class="ic" aria-hidden="true"><use href="#i-calendar"/></svg></span>Gratis møte</a>
+  <a class="tab is-active" href="demo.html" aria-current="page"><span class="pill"><svg class="ic" aria-hidden="true"><use href="#i-sparkle"/></svg></span>Demo</a>
+  <a class="tab" href="om-oss.html"><span class="pill"><svg class="ic" aria-hidden="true"><use href="#i-users"/></svg></span>Om oss</a>
+</nav>
+
+<div class="cookie" id="cookie" role="dialog" aria-labelledby="cookieTitle" hidden>
+  <b id="cookieTitle">Vi bruker informasjonskapsler</b>
+  Nødvendige informasjonskapsler får nettsiden til å fungere. Med ditt samtykke bruker vi også informasjonskapsler for å måle bruk. Du kan endre valget når som helst. <a href="#">Les mer</a>
+  <div class="cookie-actions">
+    <button class="btn btn-secondary" type="button" data-choice="necessary">Kun nødvendige</button>
+    <button class="btn btn-secondary" type="button" data-choice="all">Godta alle</button>
+  </div>
+</div>
+
+<script src="script.js"></script>
+<script src="chat-widget.js"></script>
+<script src="demo.js"></script>
+</body>
+</html>
